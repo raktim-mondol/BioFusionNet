@@ -1,1 +1,1 @@
-# SS-MAGNet-
+# SS-MAGNet
