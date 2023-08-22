@@ -1,4 +1,4 @@
-# MAGNet: Multimodal Attention Guided Network for Survival Analysis
+# MAGNet: Multimodal Attention Guided Network for Survival Risk Prediction
 
 Table of Contents
 About
