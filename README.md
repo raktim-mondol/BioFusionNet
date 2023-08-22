@@ -1,7 +1,5 @@
 # MAGNet: Multimodal Attention Guided Network for Survival Risk Prediction
 
-# MAGNet: Multimodal Attention-Guided Network for Survival Analysis
-
 ![MAGNet Logo](path/to/logo.png) <!-- If you have a logo or relevant image -->
 
 MAGNet is a deep learning framework that integrates multimodal data sources using an attention-guided mechanism, specifically designed for survival analysis tasks.
@@ -27,3 +25,29 @@ MAGNet is a deep learning framework that integrates multimodal data sources usin
 
 ```bash
 pip install magnet-survival-network
+
+## Usage
+```python
+from magnet import MAGNet
+
+model = MAGNet()
+# ... (Provide usage instructions, code examples, etc.)
+```
+
+## Dataset
+Describe the dataset used and how to access or download it.
+
+## Results
+
+## License
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+
+## Contributing
+We welcome contributions! Please see our CONTRIBUTING.md for details.
+
+
+## Acknowledgments
+
+-List of contributors or institutions.
+-Any third-party resources or datasets used.
