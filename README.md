@@ -1,43 +1,29 @@
 # MAGNet: Multimodal Attention Guided Network for Survival Risk Prediction
 
-Table of Contents
-About
-Getting Started
-Usage
-Contributing
-License
-About
-Write a paragraph or two about what the project is and does.
+# MAGNet: Multimodal Attention-Guided Network for Survival Analysis
 
-Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+![MAGNet Logo](path/to/logo.png) <!-- If you have a logo or relevant image -->
 
-Prerequisites
-List things that are required before installing and running the software. For example:
+MAGNet is a deep learning framework that integrates multimodal data sources using an attention-guided mechanism, specifically designed for survival analysis tasks.
 
-Node.js
-npm
-Installing
-Step-by-step instructions for installing the project and getting it running.
+## Table of Contents
 
-Copy code
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Dataset](#dataset)
+- [Results](#results)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
-git clone https://github.com/yourusername/yourproject.git
-cd yourproject
-npm install
-npm start
-Usage
-Provide examples and explain how to use the project or API. Show screenshots, code samples, etc.
+## Features
 
-Contributing
-If you would like to contribute to the project, please follow these guidelines:
+- **Multimodal Integration**: Seamlessly combines data from various sources.
+- **Attention-Guided Mechanism**: Focuses on the most relevant features for prediction.
+- **Designed for Survival Analysis**: Optimized for predicting time-to-event data.
 
-Fork the repository and clone it locally
-Create a new branch for what you're working on
-Commit your work and push to your origin repository
-Create a pull request and describe the changes you've made
-Make sure all tests are passing before submitting
-License
-Mention the license the project is under. For example:
+## Installation
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+```bash
+pip install magnet-survival-network
