@@ -2,7 +2,7 @@
 
 ![MAGNet Logo](path/to/logo.png) <!-- If you have a logo or relevant image -->
 
-MAGNet is a deep learning framework that integrates multimodal data sources using an attention-guided mechanism, specifically designed for survival analysis tasks.
+MM-SurvNet is a deep learning framework that integrates multimodal data sources using an attention-guided mechanism, specifically designed for survival analysis tasks.
 
 ## Table of Contents
 
