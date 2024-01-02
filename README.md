@@ -62,8 +62,6 @@ python training_risk_model.py --train_file path/to/training_patient_id.txt \
 
 ```
 
-```bash
-pip install magnet-survival-network
 
 ## Proposed Loss Function
 ```python
