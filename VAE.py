@@ -37,3 +37,11 @@ class VAE(nn.Module):
         with torch.no_grad():
             mu, _ = self.encode(x.view(-1, 1152))
             return mu
+    
+    # Loss function with MSE in this case input data normalization with standard format is ok. 
+    def loss_function(recon_x, x, mu, logvar, beta=1):
+        MSE = F.mse_loss(recon_x, x.view(-1, 1152), reduction='sum')
+        KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+        total_loss = MSE + beta * KLD
+        return total_loss, MSE, KLD
+    
