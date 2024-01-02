@@ -26,6 +26,19 @@ First Install Required Libraries
 ```python
 pip install -r requirements.txt
 ```
+Extracting Image Features
+```python
+python extracting_features.py --train_file path/to/training_patient_id.txt \
+               --val_file path/to/val_patient_id.txt \
+               --batch_size 16 \
+               --learning_rate 0.001 \
+               --epochs 100 \
+               --patience 5 \
+               --save_dir path/to/save_fused_features
+
+```
+
+
 Training VAE
 ```python
 python training_VAE.py --train_file path/to/training_patient_id.txt \
@@ -37,6 +50,18 @@ python training_VAE.py --train_file path/to/training_patient_id.txt \
                --save_dir path/to/save_fused_features
 
 ```
+Training Risk Model
+```python
+python training_risk_model.py --train_file path/to/training_patient_id.txt \
+               --val_file path/to/val_patient_id.txt \
+               --batch_size 16 \
+               --learning_rate 0.001 \
+               --epochs 100 \
+               --patience 5 \
+               --save_dir path/to/save_fused_features
+
+```
+
 ```bash
 pip install magnet-survival-network
 
