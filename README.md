@@ -65,12 +65,52 @@ python training_risk_model.py --train_file path/to/training_patient_id.txt \
 ```bash
 pip install magnet-survival-network
 
-## Usage
+## Proposed Loss Function
 ```python
-from magnet import MAGNet
+def loss_fn(risks, times, events, weights):
+    """
+    Calculate the Cox proportional hazards loss with weights for imbalance.
 
-model = MAGNet()
-# ... (Provide usage instructions, code examples, etc.)
+    Parameters:
+    - risks: Tensor of predicted risk scores (log hazard ratio) from the model.
+    - events: Tensor of event indicators (1 if event occurred, 0 for censored).
+    - weights: Tensor of weights for each sample.
+
+    Returns:
+    - Calculated loss.
+    
+    """
+    
+
+    risks = risks.to(device)
+    events = events.to(device)
+    weights = weights.to(device)
+    
+    
+    events = events.view(-1)
+    risks = risks.view(-1)
+    weights = weights.view(-1)
+    
+
+    total_weighted_events = torch.sum(weights * events)
+
+    # Sort by risk score
+    order = torch.argsort(risks, descending=True)
+    risks = risks[order]
+    events = events[order]
+    weights = weights[order]
+
+    # Calculate the risk set for each time
+    hazard_ratio = torch.exp(risks)
+    weighted_cumulative_hazard = torch.cumsum(weights * hazard_ratio, dim=0)
+    log_risk = torch.log(weighted_cumulative_hazard)
+    uncensored_likelihood = weights * (risks - log_risk)
+
+    # Only consider uncensored events
+    censored_likelihood = uncensored_likelihood * events
+    neg_likelihood = -torch.sum(censored_likelihood) / total_weighted_events
+
+    return neg_likelihood
 ```
 
 ## Dataset
