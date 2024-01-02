@@ -22,7 +22,10 @@ BioFusionNet is a deep learning framework that integrates multimodal data source
 - **Designed for Survival Analysis**: Optimized for predicting time-to-event data.
 
 ## Installation
-
+First Install Required Libraries
+```python
+pip install -r requirements.txt
+```
 Training VAE
 ```python
 python training_VAE.py --train_file path/to/training_patient_id.txt \
