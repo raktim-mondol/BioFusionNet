@@ -23,6 +23,17 @@ BioFusionNet is a deep learning framework that integrates multimodal data source
 
 ## Installation
 
+Training VAE
+```python
+python main.py --train_file path/to/train_data.csv \
+               --val_file path/to/val_data.csv \
+               --batch_size 16 \
+               --learning_rate 0.001 \
+               --epochs 100 \
+               --patience 5 \
+               --save_dir path/to/save_fused_features
+
+```
 ```bash
 pip install magnet-survival-network
 
