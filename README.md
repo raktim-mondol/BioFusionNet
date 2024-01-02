@@ -25,8 +25,8 @@ BioFusionNet is a deep learning framework that integrates multimodal data source
 
 Training VAE
 ```python
-python main.py --train_file path/to/train_data.csv \
-               --val_file path/to/val_data.csv \
+python training_VAE.py --train_file path/to/training_patient_id.txt \
+               --val_file path/to/val_patient_id.txt \
                --batch_size 16 \
                --learning_rate 0.001 \
                --epochs 100 \
