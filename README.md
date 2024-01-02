@@ -23,11 +23,11 @@ BioFusionNet is a deep learning framework that integrates multimodal data source
 
 ## Installation
 First Install Required Libraries
-```python
+```bash
 pip install -r requirements.txt
 ```
 Extracting Image Features
-```python
+```bash
 python extracting_features.py --train_file path/to/training_patient_id.txt \
                --val_file path/to/val_patient_id.txt \
                --batch_size 16 \
@@ -40,7 +40,7 @@ python extracting_features.py --train_file path/to/training_patient_id.txt \
 
 
 Training VAE
-```python
+```bash
 python training_VAE.py --train_file path/to/training_patient_id.txt \
                --val_file path/to/val_patient_id.txt \
                --batch_size 16 \
@@ -51,7 +51,7 @@ python training_VAE.py --train_file path/to/training_patient_id.txt \
 
 ```
 Training Risk Model
-```python
+```bash
 python training_risk_model.py --train_file path/to/training_patient_id.txt \
                --val_file path/to/val_patient_id.txt \
                --batch_size 16 \
