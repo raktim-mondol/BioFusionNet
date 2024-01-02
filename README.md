@@ -1,6 +1,6 @@
 # BioFusionNet: Deep Learning-based Survival Risk Stratification in ER+ Breast Cancer through Multi-Feature and Multi-Modal Data Fusion
 
-![MAGNet Logo](path/to/logo.png) <!-- If you have a logo or relevant image -->
+![MAGNet Logo](BioFusionNet.png) <!-- If you have a logo or relevant image -->
 
 MM-SurvNet is a deep learning framework that integrates multimodal data sources using an attention-guided mechanism, specifically designed for survival analysis tasks.
 
