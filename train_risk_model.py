@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 from sksurv.metrics import concordance_index_censored
 from patient_dataset import PatientDataset, collate_fn
 from multimodal_model import MultimodalModel
-from train_model import train_model
+from train_loop import train_model
 import torch.optim as optim
 
 def parse_args():
