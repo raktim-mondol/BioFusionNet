@@ -33,7 +33,6 @@ from sklearn.preprocessing import StandardScaler
 from sksurv.metrics import concordance_index_censored, concordance_index_ipcw
 from lifelines.utils import concordance_index
 
-# Import the VAE class from VAE.py (make sure VAE.py is in the same directory)
 from VAE import VAE
 
 def set_seeds(seed=0):
