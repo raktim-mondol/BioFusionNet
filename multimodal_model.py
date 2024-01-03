@@ -38,10 +38,10 @@ class MultimodalModel(nn.Module):
         self.comodel = CoDualCrossAttentionModel(img_dim=256, gene_dim=138, co_output_dim=256, cross_output_dim=256, nhead=8, num_layers=3, dim_feedforward=512)
         
     
-        combined_dim = 512
+        comodel_output_dim = 512
 
         self.fc1 = nn.Sequential(
-            nn.Linear(combined_dim, 512),
+            nn.Linear(comodel_output_dim, 512),
             nn.LayerNorm(512),
             nn.ReLU(),
             nn.Dropout(0.1) 
@@ -65,17 +65,12 @@ class MultimodalModel(nn.Module):
         self.fc4 = nn.Sequential(
             nn.Linear(128+4, 32),
             nn.LayerNorm(32),
-            #nn.InstanceNorm1d(256),
             nn.ReLU(),
-            nn.Dropout(0.12635722575476843) 
+            nn.Dropout(0.01) 
         )
         
         self.final_layer = nn.Sequential(
-            nn.Linear(32, 1, bias=False),  # Added 5 for clinical features
-            #nn.Linear(16, 1),  # Added 4 for clinical features
-            #nn.ReLU(),
-            #nn.Dropout(0.01),
-            #nn.Linear(12, 1)
+            nn.Linear(32, 1, bias=False),  
         )
 
 
@@ -89,8 +84,8 @@ class MultimodalModel(nn.Module):
         x = self.fc1(features)
         x = self.fc2(x)
         x = self.fc3(x)
-        # Concatenate clinical data directly before the last dense layers
-        x = torch.cat((x, clinical_data), dim=1)
+
+        x = torch.cat((x, clinical_data), dim=1) # Added 4 for clinical features
         x = self.fc4(x)
 
         output = self.final_layer(x)
