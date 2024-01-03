@@ -69,7 +69,7 @@ python main.py \
 ## Explainability 
 ### Shap Analysis
 ```bash
-python script_name.py --analysis_type gene --list_path /path/to/gene_names.csv
+python shap_analysis.py --analysis_type gene --list_path /path/to/gene_expression.csv 
 ```
 
 ## Proposed Loss Function
