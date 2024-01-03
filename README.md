@@ -66,6 +66,11 @@ python main.py \
   --feat_out 128
 
 ```
+## Explainability 
+### Shap Analysis
+```bash
+python script_name.py --analysis_type gene --list_path /path/to/gene_names.csv
+```
 
 ## Proposed Loss Function
 ```python
