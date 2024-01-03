@@ -28,14 +28,7 @@ pip install -r requirements.txt
 ```
 Extracting Image Features
 ```bash
-python extracting_features.py --train_file path/to/training_patient_id.txt \
-               --val_file path/to/val_patient_id.txt \
-               --batch_size 16 \
-               --learning_rate 0.001 \
-               --epochs 100 \
-               --patience 5 \
-               --save_dir path/to/save_fused_features
-
+python extract_image_features.py --root_dir ./data --model_name DINO33M
 ```
 
 
