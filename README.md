@@ -2,7 +2,7 @@
 
 ![MAGNet Logo](BioFusionNet.png) <!-- If you have a logo or relevant image -->
 
-BioFusionNet is a deep learning framework that integrates multimodal data sources using an co dual attention mechanism, specifically designed for survival analysis tasks.
+BioFusionNet is a deep learning framework that integrates multimodal data sources using an co dual cross attention mechanism, specifically designed for survival analysis tasks.
 
 ## Table of Contents
 
