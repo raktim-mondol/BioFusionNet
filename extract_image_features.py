@@ -22,6 +22,14 @@ from argparse import ArgumentParser
 
 from macenko_color_normalizer import MacenkoColorNormalization
 
+MODEL_NAME_MAPPING = {
+    "MoCov3": "hf-hub:1aurent/vit_small_patch16_224.transpath_mocov3",
+    "DINO2M": "hf-hub:1aurent/vit_small_patch16_256.tcga_brca_dino",
+    "DINO33M": "hf-hub:1aurent/vit_small_patch16_224.lunit_dino"
+}
+
+
+
 # PatientDataset class
 class PatientDataset(Dataset):
     def __init__(self, root_dir, patient_ids, transform=None, color_normalization=None):
@@ -60,15 +68,15 @@ class PatientDataset(Dataset):
 # Function to create and parse command-line arguments
 def parse_args():
     parser = ArgumentParser(description="Process medical images for survival analysis.")
-    parser.add_argument("--root_dir", required=True, help="Path to the root directory of the dataset.")
-    parser.add_argument("--model_name", required=True, help="Name of the pretrained model to use.")
+    parser.add_argument("--root_dir", required=True, help="Path to the root directory of the image dataset")
+    parser.add_argument("--model_name", choices=list(MODEL_NAME_MAPPING.keys()), required=True, help="Name of the pretrained model to use (MoCov3, DINO2M, DINO33M).")
     return parser.parse_args()
 
 # Main function to execute the script logic
 def main():
     # Parse command line arguments
     args = parse_args()
-
+    actual_model_name = MODEL_NAME_MAPPING[args.model_name]
     # Initialize MacenkoColorNormalization
     macenko_color_normalization = MacenkoColorNormalization()
 
@@ -83,7 +91,7 @@ def main():
 
     # Load model
     model = timm.create_model(
-        model_name=args.model_name,
+        model_name=actual_model_name,
         pretrained=True,
     ).eval()
 
@@ -106,7 +114,7 @@ def main():
     # Process each patient in the dataset
     for index in range(len(dataset)):
         # Get all images for this patient
-        all_images, _ = dataset[index]  # We only need the images here, not the survival data
+        all_images, _ = dataset[index]  # We only need the images here
         patient_id = dataset.patient_ids[index]
 
         all_features = []
@@ -132,7 +140,7 @@ def main():
         os.makedirs(save_dir, exist_ok=True)
 
         # Save features as a tensor
-        save_path = os.path.join(save_dir, f'{patient_id}_features.pt')
+        save_path = os.path.join(save_dir, f'{patient_id}.pt')
         torch.save(all_features, save_path)
 
         print(f"Processed and saved features for patient {patient_id}")
