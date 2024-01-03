@@ -53,6 +53,19 @@ python train_risk_model.py \
   --features_dir /path/to/features_dir
 ```
 
+## Save Prediction
+```bash
+python main.py \
+  --train_data_txt /path/to/train_ids.txt \
+  --test_data_txt /path/to/test_ids.txt \
+  --survival_data /path/to/survival.csv \
+  --gene_expression_data /path/to/gene_expression.csv \
+  --clinical_data /path/to/clinical.csv \
+  --features_dir /path/to/features \
+  --model_path /path/to/cv_1_mocov3.pt \
+  --feat_out 128
+
+```
 
 ## Proposed Loss Function
 ```python
