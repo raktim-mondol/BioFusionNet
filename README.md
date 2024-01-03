@@ -115,6 +115,18 @@ The following data sources have been used in this project:
 - Diagnostic Slide (DS): [GDC Data Portal](https://portal.gdc.cancer.gov/)
 - DS Download Guideline: [Download TCGA Digital Pathology Images (FFPE)](http://www.andrewjanowczyk.com/download-tcga-digital-pathology-images-ffpe/)
 
+### Annotation and Patch Creation
+
+- [Qupath Guideline](https://github.com/raktim-mondol/qu-path)
+
+### Image Color Normalization
+
+- Python implementation: [Normalizing H&E Images](https://github.com/bnsreenu/python_for_microscopists/blob/master/122_normalizing_HnE_images.py)
+
+- Actual Matlab implementation: [Staining Normalization](https://github.com/mitkovetta/staining-normalization/blob/master/normalizeStaining.m)
+
+- Reference: [Macenko et al. (2009) - A method for normalizing histology slides for quantitative analysis](http://wwwx.cs.unc.edu/~mn/sites/default/files/macenko2009.pdf)
+
 ## Results
 
 
