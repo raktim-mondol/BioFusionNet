@@ -26,13 +26,11 @@ First Install Required Libraries
 ```bash
 pip install -r requirements.txt
 ```
-Extracting Image Features
+## Extracting Image Features
 ```bash
 python extract_image_features.py --root_dir ./data --model_name DINO33M
 ```
-
-
-Training VAE
+## Training VAE
 ```bash
 python training_VAE.py --train_file path/to/training_patient_id.txt \
                --val_file path/to/val_patient_id.txt \
@@ -43,7 +41,7 @@ python training_VAE.py --train_file path/to/training_patient_id.txt \
                --save_dir path/to/save_fused_features
 
 ```
-Training Risk Model
+## Training Risk Model
 ```bash
 python training_risk_model.py --train_file path/to/training_patient_id.txt \
                --val_file path/to/val_patient_id.txt \
