@@ -44,14 +44,13 @@ python training_VAE.py --train_file path/to/training_patient_id.txt \
 ```
 ## Training Risk Model
 ```bash
-python training_risk_model.py --train_file path/to/training_patient_id.txt \
-               --val_file path/to/val_patient_id.txt \
-               --batch_size 16 \
-               --learning_rate 0.001 \
-               --epochs 100 \
-               --patience 5 \
-               --save_dir path/to/save_fused_features
-
+python train_risk_model.py \
+  --train_data_txt /path/to/train_ids.txt \
+  --test_data_txt /path/to/test_ids.txt \
+  --survival_data /path/to/survival_data.csv \
+  --gene_expression_data /path/to/gene_expression.csv \
+  --clinical_data /path/to/clinical_data.csv \
+  --features_dir /path/to/features_dir
 ```
 
 
