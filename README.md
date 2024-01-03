@@ -30,39 +30,39 @@ pip install -r requirements.txt
 ```
 ## Extracting Image Features
 ```bash
-python extract_image_features.py --root_dir ./data --model_name DINO33M
+python extract_image_features.py --root_dir ./sample_dataset/sample_image_data_structure/ --model_name DINO33M
 ```
 ## Training VAE
 ```bash
-python training_VAE.py --train_file path/to/training_patient_id.txt \
-               --val_file path/to/val_patient_id.txt \
+python training_VAE.py --train_file sample_dataset/train_patient_id.txt \
+               --val_file sample_dataset/test_patient_id.txt \
                --batch_size 16 \
                --learning_rate 0.001 \
                --epochs 100 \
                --patience 5 \
-               --save_dir path/to/save_fused_features
+               --save_dir /sample_dataset/sample_VAE_Extracted_Features/
 
 ```
 ## Training Risk Model
 ```bash
 python train_risk_model.py \
-  --train_data_txt /path/to/train_ids.txt \
-  --test_data_txt /path/to/test_ids.txt \
-  --survival_data /path/to/survival_data.csv \
-  --gene_expression_data /path/to/gene_expression.csv \
-  --clinical_data /path/to/clinical_data.csv \
-  --features_dir /path/to/features_dir
+  --train_data_txt sample_dataset/train_patient_id.txt \
+  --test_data_txt sample_dataset/test_patient_id.txt \
+  --survival_data sample_dataset/survival_data.csv \
+  --gene_expression_data sample_dataset/gene_expression.csv \
+  --clinical_data sample_dataset/clinical_data.csv \
+  --features_dir /sample_dataset/sample_VAE_Extracted_Features/
 ```
 
 ## Save Prediction
 ```bash
 python main.py \
-  --train_data_txt /path/to/train_ids.txt \
-  --test_data_txt /path/to/test_ids.txt \
-  --survival_data /path/to/survival.csv \
-  --gene_expression_data /path/to/gene_expression.csv \
-  --clinical_data /path/to/clinical_data.csv \
-  --features_dir /path/to/features \
+  --train_data_txt /sample_dataset/train_patient_id.txt \
+  --test_data_txt /sample_dataset/test_patient_id.txt \
+  --survival_data /sample_dataset/survival_data.csv \
+  --gene_expression_data /sample_dataset/gene_expression.csv \
+  --clinical_data /sample_dataset/clinical_data.csv \
+  --features_dir /sample_dataset/sample_VAE_Extracted_Features \
   --model_path /path/to/cv_1_mocov3.pt \
   --feat_out 128
 
@@ -70,11 +70,11 @@ python main.py \
 ## Explainability 
 ### Shap Analysis for Genetic Features
 ```bash
-python shap_analysis.py --analysis_type gene --list_path /path/to/gene_expression.csv 
+python shap_analysis.py --analysis_type gene --list_path /sample_dataset/gene_expression.csv 
 ```
 ### Shap Analysis for Clinical Features
 ```bash
-python script_name.py --analysis_type clinical --list_path /path/to/clinical_data.csv
+python script_name.py --analysis_type clinical --list_path /sample_dataset/clinical_data.csv
 ```
 
 ## Proposed Loss Function
