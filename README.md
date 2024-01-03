@@ -74,7 +74,7 @@ python shap_analysis.py --analysis_type gene --list_path /sample_dataset/gene_ex
 ```
 ### Shap Analysis for Clinical Features
 ```bash
-python script_name.py --analysis_type clinical --list_path /sample_dataset/clinical_data.csv
+python shap_analysis.py --analysis_type clinical --list_path /sample_dataset/clinical_data.csv
 ```
 
 ## Proposed Loss Function
