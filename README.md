@@ -19,6 +19,7 @@
 - [Installation](#installation)
 - [Dataset](#dataset)
 - [Results](#results)
+- [Explainability](#explainability)
 
 
 
@@ -60,16 +61,20 @@ python main.py \
   --test_data_txt /path/to/test_ids.txt \
   --survival_data /path/to/survival.csv \
   --gene_expression_data /path/to/gene_expression.csv \
-  --clinical_data /path/to/clinical.csv \
+  --clinical_data /path/to/clinical_data.csv \
   --features_dir /path/to/features \
   --model_path /path/to/cv_1_mocov3.pt \
   --feat_out 128
 
 ```
 ## Explainability 
-### Shap Analysis
+### Shap Analysis for Genetic Features
 ```bash
 python shap_analysis.py --analysis_type gene --list_path /path/to/gene_expression.csv 
+```
+### Shap Analysis for Clinical Features
+```bash
+python script_name.py --analysis_type clinical --list_path /path/to/clinical_data.csv
 ```
 
 ## Proposed Loss Function
