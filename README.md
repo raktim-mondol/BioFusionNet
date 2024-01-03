@@ -105,20 +105,19 @@ def loss_fn(risks, times, events, weights):
     return neg_likelihood
 ```
 
-## Dataset
-Describe the dataset used and how to access or download it.
+## Data Sources
+
+The following data sources have been used in this project:
+
+- Genetic Data:
+  - [BRCA TCGA](http://www.cbioportal.org/study/summary?id=brca_tcga)
+  - [BRCA TCGA Pub2015](http://www.cbioportal.org/study/summary?id=brca_tcga_pub2015)
+- Diagnostic Slide (DS): [GDC Data Portal](https://portal.gdc.cancer.gov/)
+- DS Download Guideline: [Download TCGA Digital Pathology Images (FFPE)](http://www.andrewjanowczyk.com/download-tcga-digital-pathology-images-ffpe/)
 
 ## Results
-
-## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-
-
-## Contributing
-We welcome contributions! Please see our CONTRIBUTING.md for details.
 
 
 ## Acknowledgments
 
--List of contributors or institutions.
--Any third-party resources or datasets used.
+
