@@ -130,7 +130,8 @@ The following data sources have been used in this project:
 - Reference: [Macenko et al. (2009) - A method for normalizing histology slides for quantitative analysis](http://wwwx.cs.unc.edu/~mn/sites/default/files/macenko2009.pdf)
 
 ## Results
-
+### BioFusionNet using Kaplan–Meier curve Survival curves
+![MAGNet Logo](biofusionnet_survival_curve.png)
 
 ## Acknowledgments
 
