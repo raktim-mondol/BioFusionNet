@@ -2,7 +2,7 @@
 import torch
 import csv
 from sksurv.metrics import concordance_index_censored
-from loss_function import loss_fn  # Assuming loss_fn is in a separate file
+from loss_function import loss_fn  
 
 def to_structured_array(events, times):
     dtype = [('event', bool), ('time', float)]
