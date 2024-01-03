@@ -1,54 +1,47 @@
 # train_model.py
 import torch
 import csv
+import pandas as pd
 from sksurv.metrics import concordance_index_censored
 from loss_function import loss_fn  
+from calculate_auc import calculate_auc
 
 def to_structured_array(events, times):
     dtype = [('event', bool), ('time', float)]
     return np.array(list(zip(events, times)), dtype=dtype)
 
-def train_model(model, train_dataloader, test_dataloader, optimizer, num_epochs, device, event_weight, patience, model_save_path, log_path):
+def train_model(model, train_dataloader, test_dataloader, optimizer, num_epochs, device, event_weight, patience, model_save_path, log_path, survival_data_path):
+    # Load survival data
+    survival_data = pd.read_csv(survival_data_path, index_col='PATIENT_ID')
+
     with open(log_path, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Epoch", "Training Loss", "Training C-index", "Validation Loss", "Validation C-index"])
+        writer.writerow(["Epoch", "Training Loss", "Training C-index", "Validation Loss", "Validation C-index", "Training AUC", "Validation AUC"])
 
         best_loss = float('inf')
         epochs_without_improvement = 0
         model.train()
 
         for epoch in range(num_epochs):
-            train_loss = 0.0
-            num_batches = 0
+            train_loss, num_batches = 0.0, 0
             all_predictions, all_times, all_events = [], [], []
 
+            # Training Loop
             for pid, features, (time, event), gene, clinical in train_dataloader:
-                weights_train = torch.ones(len(event))
-                weights_train[event == 1] = event_weight
-                
+                weights_train = torch.ones(len(event)) * event_weight
                 optimizer.zero_grad()
                 predictions, times, events = [], [], []
 
                 for pid, feat, tm, et, gn, cl in zip(pid, features, time, event, gene, clinical):
                     feat, gn, cl = feat.to(device), gn.to(device), cl.to(device)
-                    cl = cl.unsqueeze(0)
-                    feat = feat.unsqueeze(0)
-                    gn = gn.unsqueeze(0)
-                    prediction = model(feat, gn, cl)
-                    time = tm.to(device)
-                    event = et.to(device)
-                    prediction = prediction.squeeze().unsqueeze(0)
-                    if torch.isnan(prediction).any():
-                        print("NaN values detected in predictions.")
-                    
+                    prediction = model(feat.unsqueeze(0), gn.unsqueeze(0), cl.unsqueeze(0)).squeeze()
                     predictions.append(prediction)
-                    times.append(time.unsqueeze(0))
-                    events.append(event.unsqueeze(0))
+                    times.append(tm.unsqueeze(0))
+                    events.append(et.unsqueeze(0))
 
                 predictions = torch.cat(predictions)
                 times = torch.cat(times)
                 events = torch.cat(events)
-
                 loss = loss_fn(predictions, times, events, weights_train)
                 loss.backward()
                 optimizer.step()
@@ -60,31 +53,25 @@ def train_model(model, train_dataloader, test_dataloader, optimizer, num_epochs,
                 all_events.append(events.detach().cpu())
 
             train_loss /= num_batches
-            all_predictions = torch.cat(all_predictions)
-            all_times = torch.cat(all_times)
-            all_events = torch.cat(all_events)
-            bool_events = all_events.numpy() == 1 
-            survival_train = to_structured_array(bool_events, all_times.numpy())
-            train_c_index, _, _, _, _ = concordance_index_censored(bool_events, all_times.numpy(), all_predictions.numpy())
+            train_auc = calculate_auc(model, train_dataloader, survival_data, device)
+            train_c_index = concordance_index_censored(all_events.numpy() == 1, all_times.numpy(), all_predictions.numpy())[0]
 
-            # Validation phase
+            # Validation Loop
             model.eval()
-            val_loss = 0.0
-            num_val_batches = 0
+            val_loss, num_val_batches = 0.0, 0
             all_val_predictions, all_val_times, all_val_events = [], [], []
-            
+
             for pid, features, (time, event), gene, clinical in test_dataloader:
+                weights_test = torch.ones(len(event)) * event_weight
                 predictions, times, events = [], [], []
-                weights_test = torch.ones(len(event))
-                weights_test[event == 1] = event_weight
 
                 for pid, feat, tm, et, gn, cl in zip(pid, features, time, event, gene, clinical):
                     feat, gn, cl = feat.to(device), gn.to(device), cl.to(device)
                     with torch.no_grad():
-                        prediction = model(feat.unsqueeze(0), gn.unsqueeze(0), cl.unsqueeze(0))
-                    predictions.append(prediction.squeeze().unsqueeze(0))
-                    times.append(tm.to(device).unsqueeze(0))
-                    events.append(et.to(device).unsqueeze(0))
+                        prediction = model(feat.unsqueeze(0), gn.unsqueeze(0), cl.unsqueeze(0)).squeeze()
+                    predictions.append(prediction)
+                    times.append(tm.unsqueeze(0))
+                    events.append(et.unsqueeze(0))
 
                 predictions = torch.cat(predictions)
                 times = torch.cat(times)
@@ -96,15 +83,12 @@ def train_model(model, train_dataloader, test_dataloader, optimizer, num_epochs,
                 all_val_events.append(events.detach().cpu())
 
             val_loss /= num_val_batches
-            all_val_predictions = torch.cat(all_val_predictions)
-            all_val_times = torch.cat(all_val_times)
-            all_val_events = torch.cat(all_val_events)
-            bool_val_events = all_val_events.numpy() == 1
-            val_c_index, _, _, _, _ = concordance_index_censored(bool_val_events, all_val_times.numpy(), all_val_predictions.numpy())
+            val_auc = calculate_auc(model, test_dataloader, survival_data, device)
+            val_c_index = concordance_index_censored(all_val_events.numpy() == 1, all_val_times.numpy(), all_val_predictions.numpy())[0]
 
             # Logging
-            print(f'Epoch {epoch} - Training Loss: {train_loss:.4f}, Training C-index: {train_c_index:.4f}, Validation Loss: {val_loss:.4f}, Validation C-index: {val_c_index:.4f}')
-            writer.writerow([epoch, train_loss, train_c_index, val_loss, val_c_index])
+            print(f'Epoch {epoch}: Training Loss: {train_loss:.4f}, C-index: {train_c_index:.4f}, AUC: {train_auc}, Validation Loss: {val_loss:.4f}, C-index: {val_c_index:.4f}, AUC: {val_auc}')
+            writer.writerow([epoch, train_loss, train_c_index, val_loss, val_c_index, train_auc, val_auc])
 
             # Save model if improvement
             if val_loss < best_loss:
