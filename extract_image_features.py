@@ -73,12 +73,12 @@ def main():
     macenko_color_normalization = MacenkoColorNormalization()
 
     # Load data
-    train_data = pd.read_csv(os.path.join(args.root_dir, 'train_tcga.txt'), index_col='patient_id')
-    test_data = pd.read_csv(os.path.join(args.root_dir, 'test_tcga.txt'), index_col='patient_id')
-    all_data = pd.read_csv(os.path.join(args.root_dir, 'all_patient.txt'), index_col='patient_id')
+    #train_data = pd.read_csv(os.path.join(args.root_dir, 'train_patient_id.txt'), index_col='patient_id')
+    #test_data = pd.read_csv(os.path.join(args.root_dir, 'test_patient_id.txt'), index_col='patient_id')
+    all_data = pd.read_csv(os.path.join(args.root_dir, 'all_patient_id.txt'), index_col='patient_id')
 
-    train_patient_ids = train_data.index.astype(str).tolist()
-    test_patient_ids = test_data.index.astype(str).tolist()
+    #train_patient_ids = train_data.index.astype(str).tolist()
+    #test_patient_ids = test_data.index.astype(str).tolist()
     all_patient_ids = all_data.index.astype(str).tolist()
 
     # Load model
