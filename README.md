@@ -12,7 +12,7 @@
 - **Tailored for Imbalanced Survival Data**: Features a specialized weighted Cox loss function designed to adeptly handle the intricacies of imbalanced survival datasets, significantly elevating the model's effectiveness in predicting time-to-event outcomes with superior performance metrics.
 
 ## Journey of a Cancer Patient
-![MAGNet Logo](patient_journey.png) <!-- If you have a logo or relevant image -->
+![Banner](patient_journey.jpg) 
 ## Table of Contents
 
 - [Features](#features)
