@@ -2,9 +2,8 @@
 import torch
 import csv
 import pandas as pd
-from sksurv.metrics import concordance_index_censored
+from sksurv.metrics import concordance_index_censored, cumulative_dynamic_auc
 from loss_function import loss_fn  
-from calculate_auc import calculate_auc
 
 def to_structured_array(events, times):
     dtype = [('event', bool), ('time', float)]
@@ -13,10 +12,11 @@ def to_structured_array(events, times):
 def train_model(model, train_dataloader, test_dataloader, optimizer, num_epochs, device, event_weight, patience, model_save_path, log_path, survival_data_path):
     # Load survival data
     survival_data = pd.read_csv(survival_data_path, index_col='PATIENT_ID')
+    structured_survival_data = to_structured_array(survival_data['OS_STATUS'], survival_data['OS_MONTHS'])
 
     with open(log_path, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Epoch", "Training Loss", "Training C-index", "Validation Loss", "Validation C-index", "Training AUC", "Validation AUC"])
+        writer.writerow(["Epoch", "Training Loss", "Training C-index", "Validation Loss", "Validation C-index", "Validation AUC"])
 
         best_loss = float('inf')
         epochs_without_improvement = 0
@@ -48,12 +48,8 @@ def train_model(model, train_dataloader, test_dataloader, optimizer, num_epochs,
 
                 train_loss += loss.item()
                 num_batches += 1
-                all_predictions.append(predictions.detach().cpu())
-                all_times.append(times.detach().cpu())
-                all_events.append(events.detach().cpu())
 
             train_loss /= num_batches
-            train_auc = calculate_auc(model, train_dataloader, survival_data, device)
             train_c_index = concordance_index_censored(all_events.numpy() == 1, all_times.numpy(), all_predictions.numpy())[0]
 
             # Validation Loop
@@ -78,17 +74,17 @@ def train_model(model, train_dataloader, test_dataloader, optimizer, num_epochs,
                 events = torch.cat(events)
                 val_loss += loss_fn(predictions, times, events, weights_test).item()
                 num_val_batches += 1
-                all_val_predictions.append(predictions.detach().cpu())
-                all_val_times.append(times.detach().cpu())
-                all_val_events.append(events.detach().cpu())
 
             val_loss /= num_val_batches
-            val_auc = calculate_auc(model, test_dataloader, survival_data, device)
             val_c_index = concordance_index_censored(all_val_events.numpy() == 1, all_val_times.numpy(), all_val_predictions.numpy())[0]
 
+            # AUC Calculation for Test Data
+            time_points = np.array([5, 10])  # Time points for AUC calculation
+            val_auc = cumulative_dynamic_auc(structured_survival_data, to_structured_array(all_val_events.numpy(), all_val_times.numpy()), all_val_predictions.numpy(), time_points)
+
             # Logging
-            print(f'Epoch {epoch}: Training Loss: {train_loss:.4f}, C-index: {train_c_index:.4f}, AUC: {train_auc}, Validation Loss: {val_loss:.4f}, C-index: {val_c_index:.4f}, AUC: {val_auc}')
-            writer.writerow([epoch, train_loss, train_c_index, val_loss, val_c_index, train_auc, val_auc])
+            print(f'Epoch {epoch}: Training Loss: {train_loss:.4f}, C-index: {train_c_index:.4f}, Validation Loss: {val_loss:.4f}, C-index: {val_c_index:.4f}, Validation AUC: {val_auc}')
+            writer.writerow([epoch, train_loss, train_c_index, val_loss, val_c_index, val_auc])
 
             # Save model if improvement
             if val_loss < best_loss:
