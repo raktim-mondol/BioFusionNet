@@ -17,12 +17,8 @@
 
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Dataset](#dataset)
 - [Results](#results)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
 
 
 
@@ -133,6 +129,5 @@ The following data sources have been used in this project:
 ### BioFusionNet using Kaplan–Meier curve Survival curves
 ![MAGNet Logo](biofusionnet_survival_curve.png)
 
-## Acknowledgments
 
 
