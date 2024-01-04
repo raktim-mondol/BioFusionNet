@@ -1,0 +1,5 @@
+Fold,Sample,Duration,Event,Risk Group
+Fold 1,TCGA-A1-A0SF,4.008175253,0,Low Risk
+Fold 1,TCGA-A1-A0SJ,1.139713538,0,Low Risk
+Fold 1,TCGA-PE-A5DC,3.917765285,1,Low Risk
+Fold 1,TCGA-A1-A0SM,0.663006433,0,High Risk
