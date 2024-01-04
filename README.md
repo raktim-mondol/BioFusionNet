@@ -125,10 +125,17 @@ def loss_fn(risks, times, events, weights):
     return neg_likelihood
 ```
 
-## To Generate Combined Survival Curve
+## Survival Curve
+### Step1:
 ```bash
 python km_survival_curve_step_1.py --data_file "path/to/clinical_survival.csv" --train_id_template "path/to/cv{}_train_patient_id.txt" --test_id_template "path/to/cv{}_test_patient_id.txt" --training_data_predictions_template "path/to/cv{}_training_data_predictions.txt" --test_data_predictions_template "path/to/cv{}_test_data_predictions.txt" --output_folder "path/to/output_folder" --num_folds 5
 ```
+### Step2:
+```bash
+python km_survival_curve_step_2.py --data_file "path/to/combined_extracted_data.csv" --output_file "path/to/output_plot.png"
+```
+## Hazard Analysis
+
 
 ## Dataset
 
