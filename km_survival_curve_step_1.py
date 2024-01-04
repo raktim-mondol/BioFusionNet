@@ -68,8 +68,8 @@ if __name__ == "__main__":
     parser.add_argument("--data_file", required=True, help="Path to the clinical survival CSV file")
     parser.add_argument("--train_id_template", required=True, help="Template for train ID file paths")
     parser.add_argument("--test_id_template", required=True, help="Template for test ID file paths")
-    parser.add_argument("--training_data_predictions_template", required=True, help="Template for training data predictions file paths")
-    parser.add_argument("--test_data_predictions_template", required=True, help="Template for test data predictions file paths")
+    parser.add_argument("--training_data_predictions_template", required=True, help="Training data predictions file paths")
+    parser.add_argument("--test_data_predictions_template", required=True, help="Test data predictions file paths")
     parser.add_argument("--output_folder", required=True, help="Folder to save output files")
     parser.add_argument("--num_folds", type=int, default=5, help="Number of folds to process")
 
