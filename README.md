@@ -125,6 +125,11 @@ def loss_fn(risks, times, events, weights):
     return neg_likelihood
 ```
 
+## To Generate Combined Survival Curve
+```bash
+python script_name.py --data_file "path/to/clinical_survival.csv" --train_id_template "path/to/cv{}_train_patient_id.txt" --test_id_template "path/to/cv{}_test_patient_id.txt" --training_data_predictions_template "path/to/cv{}_training_data_predictions.txt" --test_data_predictions_template "path/to/cv{}_test_data_predictions.txt" --output_folder "path/to/output_folder" --num_folds 5
+```
+
 ## Dataset
 
 The following data sources have been used in this project:
