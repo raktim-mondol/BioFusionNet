@@ -137,11 +137,11 @@ python km_survival_curve_step_2.py --data_file "path/to/combined_extracted_data.
 ## Hazard Analysis
 ### Multivariate Analysis
 ```bash
-python script_name.py --data_file "path/to/data.csv" --columns "TIME,EVENT,Grade,Tumor_Size,Age,LN_Status,Subtype,Risk Group" --output_file "path/to/output_plot.png"
+python hazard_analysis.py --data_file "sample_dataset/curated_survival_for_hazard.csv" --columns "TIME,EVENT,Grade,Tumor_Size,Age,LN_Status,Subtype,Risk Group" --output_file "path/to/output_plot.png"
 ```
 ### Univariate Analysis
 ```bash
-python script_name.py --data_file "path/to/data.csv" --columns "TIME,EVENT,Grade,Tumor_Size,Age,LN_Status,Subtype,Risk Group" --output_file "path/to/output_plot.png"
+python hazard_analysis.py --data_file "sample_dataset/curated_survival_for_hazard.csv" --columns "TIME,EVENT,Risk Group" --output_file "path/to/output_plot.png"
 ```
 ## Dataset
 
