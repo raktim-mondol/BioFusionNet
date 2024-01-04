@@ -135,8 +135,14 @@ python km_survival_curve_step_1.py --data_file "path/to/clinical_survival.csv" -
 python km_survival_curve_step_2.py --data_file "path/to/combined_extracted_data.csv" --output_file "path/to/output_plot.png"
 ```
 ## Hazard Analysis
-
-
+### Multivariate Analysis
+```bash
+python script_name.py --data_file "path/to/data.csv" --columns "TIME,EVENT,Grade,Tumor_Size,Age,LN_Status,Subtype,Risk Group" --output_file "path/to/output_plot.png"
+```
+### Univariate Analysis
+```bash
+python script_name.py --data_file "path/to/data.csv" --columns "TIME,EVENT,Grade,Tumor_Size,Age,LN_Status,Subtype,Risk Group" --output_file "path/to/output_plot.png"
+```
 ## Dataset
 
 The following data sources have been used in this project:
