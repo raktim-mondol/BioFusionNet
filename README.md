@@ -1,7 +1,7 @@
 # BioFusionNet: Survival Risk Stratification through Multi-Feature and Multi-Modal Data Fusion [[Paper](https://ieeexplore.ieee.org/document/10568932)]
 
 
-![MAGNet Logo](BioFusionNet.png) <!-- If you have a logo or relevant image -->
+![MAGNet Logo](cover_image.png) <!-- If you have a logo or relevant image -->
 
 
 ## Features
