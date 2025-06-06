@@ -2,7 +2,7 @@
 
 
 ![MAGNet Logo](cover_image.png) <!-- If you have a logo or relevant image -->
-
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/raktim-mondol/BioFusionNet)
 
 ## Features
 
